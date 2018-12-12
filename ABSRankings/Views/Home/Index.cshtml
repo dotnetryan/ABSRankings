@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ABSRankings.ViewModels.HomeMatrixDisplay>
+
+@{
+    ViewBag.Title = "Percentages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h2 style="padding-left: 15px;">Difficulties</h2>
+
+    @foreach (var difficulty in Model)
+    {
+        <div class="col-md-3">
+            <h3>@Html.DisplayFor(modelItem => difficulty.Difficulty.Name)</h3>
+            <p>
+                <ul>
+                    @foreach (var metric in difficulty.Metrics)
+                    {
+                        <li>@Html.ActionLink(metric.Description, "Overall", "Rankings", new { metricId = metric.ID, difficultyId = difficulty.Difficulty.ID }, null)</li>
+                    }
+                </ul>
+            </p>
+        </div>
+    }
+</div>

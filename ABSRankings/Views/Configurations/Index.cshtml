@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ABSRankings.Models.Configuration>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Configurations</h2>
+
+<p>
+    These keys are used by the application to get data from WCL and provide different links. If things change, please update these keys. 
+</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="display" data-order='[[ 0, "asc" ]]' data-page-length='15'>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Key)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Key)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

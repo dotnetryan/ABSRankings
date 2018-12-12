@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ABSRankings.Models.OverallPercentages>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Overall Percentages</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="display" data-order='[[ 0, "asc" ]]' data-page-length='50'>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Player.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Player.Spec.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Difficulty.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Metric.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Percentage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player.Spec.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Difficulty.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Metric.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Percentage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Player.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Player.Spec.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Difficulty.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Metric.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Percentage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>

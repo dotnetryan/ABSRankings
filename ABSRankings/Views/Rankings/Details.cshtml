@@ -1,0 +1,63 @@
+﻿@model ABSRankings.Models.Ranking
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ranking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.Spec.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.Spec.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Encounter.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Encounter.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Difficulty.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Difficulty.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Total)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

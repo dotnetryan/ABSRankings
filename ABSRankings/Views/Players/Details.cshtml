@@ -1,0 +1,115 @@
+﻿@model ABSRankings.ViewModels.PlayerDetailsDisplay
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Details - @Html.DisplayFor(model => model.Player.Name)</h2>
+
+<div>
+    <div class="clearfix">
+        <h4 style="float: left;">@Html.DisplayFor(model => model.Player.Spec.Name) @Html.DisplayFor(model => model.Player.Spec.ClassName)</h4>
+        <h6 style="float: right;"><i>@Html.DisplayNameFor(model => model.Player.LastUpdated) - @Html.DisplayFor(model => model.Player.LastUpdated)</i></h6>
+    </div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.Sim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player.Sim)
+        </dd>
+
+        <dt>
+            Benchmarks
+        </dt>
+        <dd>
+
+        </dd>
+        @foreach (var benchmark in Model.Benchmarks)
+        {
+            <dt>
+                @Html.DisplayFor(model => benchmark.Difficulty.Name) - @Html.DisplayFor(model => benchmark.Metric.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => benchmark.Value)
+            </dd>
+        }
+    </dl>
+</div>
+
+<h2>Trend of Your Overall Percentage</h2>
+
+<!-- This script call must happen before Html.CreateChart and can't be added to script bundle since the budle is called at the bottom of the page -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.Extensions;
+@{
+
+    const string Canvas = "LineChart";
+    var complexChart = new LineChart();
+    var labels = Model.OverallPercentageTrends.Labels;
+    var data = Model.OverallPercentageTrends.ComplexDataSets;
+
+    complexChart.ComplexData.Labels.AddRange(labels);
+    complexChart.ComplexData.Datasets.AddRange(data);
+}
+
+<canvas id="@Canvas" style="width:  100%; height: 500px;"></canvas>
+
+@Html.CreateChart(Canvas, complexChart)
+
+<h2>Top Parses from WCL</h2>
+
+<table class="display" data-order='[[ 5, "desc" ]]' data-page-length='15'>
+    <thead>
+        <tr>
+            <th>Encounter</th>
+            <th>Difficulty</th>
+            <th>iLevel</th>
+            <th>Metric</th>
+            <th>Total</th>
+            <th>Percent Over Benchmark</th>
+            <th>WoL Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Rankings)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Encounter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Difficulty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlayerILevel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Metric)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td class="@Html.DisplayFor(modelItem => item.CssClass)">
+                    @Html.DisplayFor(modelItem => item.Percentage)
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.ReportUrl)" target="_blank">Report</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Encounter</th>
+            <th>Difficulty</th>
+            <th>iLevel</th>
+            <th>Metric</th>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administration</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Site Admin Pages</h3>
+            <p>
+               Various administration functions for the site.
+                <ul>
+                    <li>@Html.ActionLink("Players", "Index", "Players")</li>
+                    <li>@Html.ActionLink("Overall Percentages", "Index", "OverallPercentages")</li>
+                    <li>@Html.ActionLink("Rankings", "Index", "Rankings")</li>
+                    <li>@Html.ActionLink("Metrics", "Index", "Metrics")</li>
+                    <li>@Html.ActionLink("Coefficients", "Index", "Coefficients")</li>
+                    <li>@Html.ActionLink("Configurations", "Index", "Configurations")</li>
+                </ul>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h3>WCL Pages</h3>
+            <p>
+                The data on these pages are automatically generated from WCL and various data pulls
+                <ul>
+                    <li>@Html.ActionLink("Rankings", "Index", "Rankings")</li>
+                    <li>@Html.ActionLink("Specs", "Index", "Specs")</li>
+                    <li>@Html.ActionLink("Zones", "Index", "Zones")</li>
+                    <li>@Html.ActionLink("Encounters", "Index", "Encounters")</li>
+                    <li>@Html.ActionLink("Difficulties", "Index", "Difficulties")</li>
+                </ul>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h3>Player Updates</h3>
+            <p>
+                Update all player data from Warcraft Logs
+                <br /><br />
+                <span class="text-warning">WARNING! This will take a long time, you probably should update individual players instead!</span>
+                <br /><br />
+                <input type="button" value="Update" onclick="location.href='@Url.Action("UpdatePlayerDataFromWCL", "Admin")'" />
+            </p>
+        </div>
+    </div>
+}

@@ -1,0 +1,42 @@
+﻿@model ABSRankings.Models.Zone
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Zone</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WCLZoneId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WCLZoneId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WCLFrozen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WCLFrozen)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

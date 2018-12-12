@@ -1,0 +1,100 @@
+﻿@model ABSRankings.ViewModels.OverallRankingPercentageDisplay
+
+@{
+    ViewBag.Title = "Overall";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Overall</h2>
+
+<div class="clearfix">
+    <h3>@ViewBag.Difficulty.Name - @ViewBag.Metric.Description</h3>
+    <h6>
+        <i>
+            This page lists all players sorted by the average of their percentages for each fight based on their top WCL parse. <br /><br />Click on a player name to view more details.
+        </i>
+    </h6>
+</div>
+
+<table class="display" data-order='[[ 3, "desc" ]]' data-page-length='25'>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Percent</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var overall in Model.RankingPercentages)
+        {
+            <tr class="header">
+                <td>
+                    @Html.DisplayFor(modelItem => overall.PlayerName)
+                    <span>+</span>
+                </td>
+                <td class="@Html.DisplayFor(modelItem => overall.CssClass)" title="This calculation represents the average of your percentages for all parses against your benchmark">
+                    @Html.DisplayFor(modelItem => overall.Percentage)
+                </td>
+                <td></td>
+            </tr>
+            foreach (var spec in overall.SpecPercentages)
+            {
+                <tr style="display: none;">
+                    <td>@Html.DisplayFor(modelItem => spec.Player.Spec.ClassName) - @Html.DisplayFor(modelItem => spec.Player.Spec.Name)</td>
+                    <td class="@Html.DisplayFor(modelItem => spec.CssClass)">@Html.DisplayFor(modelItem => spec.Percentage)</td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Players", new { id = spec.Player.ID }, null)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Percent</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+<h2>Trend of Overall Percentages</h2>
+
+<!-- This script call must happen before Html.CreateChart and can't be added to script bundle since the budle is called at the bottom of the page -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.Extensions;
+@{
+
+    const string Canvas = "LineChart";
+    var complexChart = new LineChart();
+    var labels = Model.OverallPercentageTrends.Labels;
+    var data = Model.OverallPercentageTrends.ComplexDataSets;
+
+    complexChart.ComplexData.Labels.AddRange(labels);
+    complexChart.ComplexData.Datasets.AddRange(data);
+}
+
+<canvas id="@Canvas" style="width:  100%; height: 500px;"></canvas>
+
+@Html.CreateChart(Canvas, complexChart)
+
+<p>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</p>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.header').click(function () {
+                $(this).find('span').text(function (_, value) { return value == ' - ' ? ' + ' : ' - ' });
+                $(this).nextUntil('tr.header').slideToggle(100, function () {
+                });
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,42 @@
+﻿@model ABSRankings.Models.Encounter
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Encounter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Zone.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zone.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WCLEncounterId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WCLEncounterId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
